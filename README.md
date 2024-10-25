@@ -1,5 +1,6 @@
 # spring_boot
 
+6주차까지 실습완료!
 
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
