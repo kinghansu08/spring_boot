@@ -53,7 +53,6 @@
     <input type="hidden" name="_method" value="delete">
     <button type="submit" class="btn btn-danger">삭제</button>
     </form>
-   
                         </td>
                     </tr>
                 </tbody>
