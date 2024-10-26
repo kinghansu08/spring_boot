@@ -64,7 +64,10 @@
 </body>
 </html>
 
-### aeticle_edit.html
+
+
+### article_list.html
+```html
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
