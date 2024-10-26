@@ -2,6 +2,8 @@
 
 6주차까지 실습완료!
 
+추가 구현 할 예정
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
