@@ -13,9 +13,7 @@ import com.example.demo.model.domain.TestDB;
 public class DemoController {
 
     @Autowired
-    private TestService testService;
-
-    // BlogService를 Autowired로 주입
+    private TestService testService; // BlogService를 Autowired로 주입
 
 
     // "/hello" URL로 들어오는 HTTP GET 요청을 처리
