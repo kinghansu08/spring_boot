@@ -17,11 +17,11 @@ public class DemoController {
 
 
     // "/hello" URL로 들어오는 HTTP GET 요청을 처리
-    @GetMapping("/hello")
-    public String hello(Model model) {
-        model.addAttribute("data", " 방갑습니다.");
-        return "hello"; // hello.html 페이지 반환
-    }
+    @GetMapping("/hello") // 전송 방식 GET
+ public String hello(Model model) {
+ model.addAttribute("data", " 방갑습니다."); // model 설정
+return "hello"; // hello.html 연결
+}   
 
     @GetMapping("/hello2")
     public String hello2(Model model) {
