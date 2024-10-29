@@ -11,6 +11,8 @@
     };
     spinner();
     
+
+    
     
     // Initiate the wowjs
     new WOW().init();
@@ -120,6 +122,23 @@
         dots: true,
         loop: true,
     });
+
+
+  // 돌아가기 버튼 기능 추가
+// 버튼 클릭 시 이전 페이지로 돌아갈지 묻는 함수
+function confirmClose() {
+    if (confirm("정말 이전 페이지로 돌아가시겠습니까?")) {
+        window.history.back(); // 확인 시 이전 페이지로 이동
+    }
+}
+
+// 돌아가기 버튼에 이벤트 리스너 추가
+$(document).ready(function () {
+    $('#backButton').on('click', function(event) {
+        event.preventDefault(); // a 태그 기본 동작 방지
+        confirmClose();
+    });
+});
 
     
 })(jQuery);
