@@ -18,6 +18,7 @@ private final BlogService blogService;
  return ResponseEntity.status(HttpStatus.CREATED)
  .body(saveArticle);
  }
+ 
 
 
     @GetMapping("/favicon.ico")
