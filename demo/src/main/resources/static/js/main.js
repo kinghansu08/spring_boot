@@ -10,13 +10,9 @@
         }, 1);
     };
     spinner();
-    
 
-    
-    
     // Initiate the wowjs
     new WOW().init();
-
 
     // Navbar on scrolling
     $(window).scroll(function () {
@@ -27,24 +23,22 @@
         }
     });
 
-
     // Smooth scrolling on the navbar links
     $(".navbar-nav a").on('click', function (event) {
         if (this.hash !== "") {
             event.preventDefault();
-            
+
             $('html, body').animate({
                 scrollTop: $(this.hash).offset().top - 45
             }, 1500, 'easeInOutExpo');
-            
+
             if ($(this).parents('.navbar-nav').length) {
                 $('.navbar-nav .active').removeClass('active');
                 $(this).closest('a').addClass('active');
             }
         }
     });
-    
-    
+
     // Back to top button
     $(window).scroll(function () {
         if ($(this).scrollTop() > 300) {
@@ -54,10 +48,9 @@
         }
     });
     $('.back-to-top').click(function () {
-        $('html, body').animate({scrollTop: 0}, 1500, 'easeInOutExpo');
+        $('html, body').animate({ scrollTop: 0 }, 1500, 'easeInOutExpo');
         return false;
     });
-    
 
     // Typed Initiate
     if ($('.typed-text-output').length == 1) {
@@ -70,7 +63,6 @@
             loop: true
         });
     }
-
 
     // Modal Video
     var $videoSrc;
@@ -85,21 +77,18 @@
         $("#video").attr('src', $videoSrc);
     })
 
-
     // Facts counter
     $('[data-toggle="counter-up"]').counterUp({
         delay: 10,
         time: 2000
     });
 
-
     // Skills
     $('.skill').waypoint(function () {
         $('.progress .progress-bar').each(function () {
             $(this).css("width", $(this).attr("aria-valuenow") + '%');
         });
-    }, {offset: '80%'});
-
+    }, { offset: '80%' });
 
     // Portfolio isotope and filter
     var portfolioIsotope = $('.portfolio-container').isotope({
@@ -110,9 +99,8 @@
         $("#portfolio-flters li").removeClass('active');
         $(this).addClass('active');
 
-        portfolioIsotope.isotope({filter: $(this).data('filter')});
+        portfolioIsotope.isotope({ filter: $(this).data('filter') });
     });
-
 
     // Testimonials carousel
     $(".testimonial-carousel").owlCarousel({
@@ -123,22 +111,18 @@
         loop: true,
     });
 
-
+    // Back Button functionality
     $(document).ready(function () {
-        $('#backButton').on('click', function(event) {
-            event.preventDefault(); // a 태그 기본 동작 방지
-            console.log("Back button clicked"); // 디버그 메시지
+        $('#backButton').on('click', function (event) {
+            event.preventDefault(); // Prevents the default action of the anchor tag
             confirmClose();
         });
     });
-    
+
     function confirmClose() {
-        console.log("confirmClose function called"); // 디버그 메시지
         if (confirm("정말 이전 페이지로 돌아가시겠습니까?")) {
-            window.history.back(); // 확인 시 이전 페이지로 이동
+            window.history.back(); // Goes back to the previous page if confirmed
         }
     }
-  
-    }
-    )(jQuery);
 
+})(jQuery); // Correctly closing the IIFE
