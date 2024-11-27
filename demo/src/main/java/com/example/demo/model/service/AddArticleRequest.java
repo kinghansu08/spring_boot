@@ -1,7 +1,6 @@
 package com.example.demo.model.service;
 
 import lombok.*; // 어노테이션 자동 생성
-import com.example.demo.model.domain.Article;
 import com.example.demo.model.domain.Board;
 
 
