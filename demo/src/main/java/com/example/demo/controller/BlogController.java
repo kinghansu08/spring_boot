@@ -1,14 +1,13 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.domain.Article;
 import com.example.demo.model.domain.Board;
 import com.example.demo.model.service.AddArticleRequest;
 import com.example.demo.model.service.BlogService;
+
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+
+
 
 @Controller
 @RequiredArgsConstructor
@@ -73,21 +74,45 @@ public class BlogController{
         return "article_edit"; // article_edit.html 페이지 반환
     }*/
 
+
     @GetMapping("/board_list") // 새로운 게시판 링크 지정
-    public String board_list(Model model, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "") String keyword) {
-     PageRequest pageable = PageRequest.of(page, 3); // 한 페이지의 게시글 수
+public String board_list(
+    Model model, 
+    @RequestParam(defaultValue = "0") int page, 
+    @RequestParam(defaultValue = "") String keyword, 
+    HttpSession session) { // 세션 객체 전달
+
+    // 세션에서 userId 확인
+    String userId = (String) session.getAttribute("userId");
+    String email = (String) session.getAttribute("email"); // 세션에서 이메일 확인
+    if (userId == null) {
+        // 세션이 없으면 로그인 페이지로 리다이렉션
+        return "redirect:/member_login";
+    }
+    // 디버깅: 세션의 userId를 출력
+    System.out.println("세션 userId: " + userId);
+
+    // 페이지 요청 및 검색 처리
+    PageRequest pageable = PageRequest.of(page, 3); // 한 페이지의 게시글 수
     Page<Board> list; // Page를 반환
     if (keyword.isEmpty()) {
-     list = blogService.findAll(pageable); // 기본 전체 출력(키워드 x)
-     } else {
-     list = blogService.searchByKeyword(keyword, pageable); // 키워드로 검색
+        list = blogService.findAll(pageable); // 기본 전체 출력(키워드 없음)
+    } else {
+        list = blogService.searchByKeyword(keyword, pageable); // 키워드로 검색
     }
-     model.addAttribute("boards", list); // 모델에 추가
-    model.addAttribute("totalPages", list.getTotalPages()); // 페이지 크기
-    model.addAttribute("currentPage", page); // 페이지 번호
-    model.addAttribute("keyword", keyword); // 키워드
-    return "board_list"; // .HTML 연결
-    }
+
+    // 모델에 데이터 추가
+    model.addAttribute("boards", list); // 게시판 목록
+    model.addAttribute("totalPages", list.getTotalPages()); // 총 페이지 수
+    model.addAttribute("currentPage", page); // 현재 페이지
+    model.addAttribute("keyword", keyword); // 검색 키워드
+    model.addAttribute("email", email); // 로그인 사용자(이메일)
+    // model.addAttribute("startNum", startNum); // 10주차 ppt에는 적혀져 있는데, 일단 보류
+
+    // 연결할 HTML 파일 이름 반환
+    return "board_list";
+}
+
     @GetMapping("/board_view/{id}") // 게시판 링크 지정
     public String board_view(Model model, @PathVariable Long id) {
      Optional<Board> list = blogService.findById(id); // 선택한 게시판 글
@@ -111,8 +136,4 @@ public class BlogController{
      blogService.save(request);
      return "redirect:/board_list"; // .HTML 연결
     }
-
-  
-    
-
 }
