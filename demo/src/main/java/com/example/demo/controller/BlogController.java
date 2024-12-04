@@ -112,6 +112,15 @@ public String board_list(
     // 연결할 HTML 파일 이름 반환
     return "board_list";
 }
+@GetMapping("/board_edit/{id}")
+public String editBoard(@PathVariable Long id, Model model) {
+    Optional<Board> board = blogService.findById(id);
+    if (board.isPresent()) {
+        model.addAttribute("boards", board.get());
+        return "board_list"; // board_list.html로 연결
+    }
+    return "error"; // 오류 처리 (예: board가 없을 경우)
+}
 
     @GetMapping("/board_view/{id}") // 게시판 링크 지정
     public String board_view(Model model, @PathVariable Long id) {
@@ -125,6 +134,7 @@ public String board_list(
        }
         return "board_view"; // .HTML 연결
 }
+
 @GetMapping("/board_write") // Specify new bulletin board link
     public String board_write(Model model) {
         List<Board> list = blogService.findAll(); // Full list of bulletin boards

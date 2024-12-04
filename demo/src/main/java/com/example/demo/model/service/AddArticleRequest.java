@@ -14,6 +14,8 @@ public class AddArticleRequest {
     private String newdate;
     private String count;
     private String likec;
+    //1204추가
+    // private String update;
 
 
     // DTO를 Article 엔티티로 변환하는 메서드
@@ -24,6 +26,7 @@ public class AddArticleRequest {
     //         .build();
     // }
     // DTO를 board 엔티티로 변환하는 메서드
+
     public Board toEntity() { 
              return Board.builder()
                  .title(title)
@@ -32,6 +35,8 @@ public class AddArticleRequest {
                  .newdate(newdate)
                  .count(count)
                  .likec(likec)
+                 //1204추가
+                //  .update(update)
                  .build();
          }
 }

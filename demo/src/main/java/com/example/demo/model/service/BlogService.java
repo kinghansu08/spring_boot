@@ -11,8 +11,6 @@ import com.example.demo.model.repository.BlogRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-
-
 import lombok.RequiredArgsConstructor;
 
 
@@ -59,13 +57,13 @@ public class BlogService {
 
      
     // 게시글 수정
-    // public void update(Long id, AddArticleRequest request) {
-    //     Optional<Article> optionalArticle = blogRepository.findById(id); // 단일글조회
-    //    optionalArticle.ifPresent(article -> { //값이있으면
-    //    article.update(request.getTitle(), request.getContent()); // 값을수정
-    //    blogRepository.save(article); // Article 객체에저장
-    //    });
-    //     }
+    public void update(Long id, AddArticleRequest request) {
+        Optional<Board> optionalArticle = blogRepository.findById(id); // 단일글조회
+       optionalArticle.ifPresent(board -> { //값이있으면
+        board.update(board.getUser(), board.getNewdate(),board.getCount(),board.getLikec()); // 값을수정
+       blogRepository.save(board); // Board 객체에저장
+       });
+        }
 
 
     // // 게시글 저장
