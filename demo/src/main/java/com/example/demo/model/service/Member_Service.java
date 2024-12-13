@@ -8,8 +8,13 @@ import com.example.demo.model.repository.Member_Repository;
 import org.springframework.transaction.annotation.Transactional;
 import com.example.demo.model.domain.Member;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import jakarta.validation.Valid; // Jakarta EE (최신 버전)
+import org.springframework.validation.annotation.Validated;
+
+
 
 @Service
+@Validated
 @Transactional // 트랜잭션처리(클래스내모든메소드대상)
 @RequiredArgsConstructor
 public class Member_Service {
@@ -26,7 +31,7 @@ public class Member_Service {
     }
     }
     
-    public Member saveMember(AddMemberRequest request){
+    public Member saveMember(@Valid AddMemberRequest request){
         validateDuplicateMember(request); // 이메일 체크
 
         String encodedPassword = passwordEncoder.encode(request.getPassword());

@@ -1,6 +1,7 @@
 package com.example.demo.model.service;
 
 import java.util.Optional;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,20 +51,41 @@ public class BlogService {
       return blogRepository.findByTitleContainingIgnoreCase(keyword, pageable);
       } // LIKE 검색 제공(대소문자 무시)
 
+      
+
     public Board save(AddArticleRequest request){
       // DTO가 없는 경우 이곳에 직접 구현 가능
      return blogRepository.save(request.toEntity());
       }
 
-     
     // 게시글 수정
     public void update(Long id, AddArticleRequest request) {
-        Optional<Board> optionalArticle = blogRepository.findById(id); // 단일글조회
-       optionalArticle.ifPresent(board -> { //값이있으면
-        board.update(board.getUser(), board.getNewdate(),board.getCount(),board.getLikec()); // 값을수정
-       blogRepository.save(board); // Board 객체에저장
-       });
+      System.out.println("Service에서 수정 요청 ID: " + id);
+      System.out.println("Service에서 수정 요청 데이터: " + request);
+      Optional<Board> optionalBoard = blogRepository.findById(id);
+      if (optionalBoard.isPresent()) {
+          Board board = optionalBoard.get();
+          board.update(request.getTitle(), request.getContent(), request.getUser(),
+                       request.getNewdate(), request.getCount(), request.getLikec());
+          blogRepository.save(board);
+          System.out.println("수정 완료: " + board);
+      } else {
+          throw new IllegalArgumentException("해당 ID의 게시글이 없습니다: " + id);
+      }
+  }
+  
+
+
+      public void delete(Long id) {
+        Optional<Board> optionalBoard = blogRepository.findById(id); // 삭제할 게시글 조회
+        if (optionalBoard.isPresent()) {
+            blogRepository.deleteById(id); // 게시글 삭제
+        } else {
+            throw new IllegalArgumentException("삭제할 게시글이 존재하지 않습니다. ID: " + id);
         }
+    }
+
+
 
 
     // // 게시글 저장

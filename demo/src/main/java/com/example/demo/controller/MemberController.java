@@ -18,7 +18,7 @@ import org.springframework.ui.Model;
 import java.util.UUID;
 // 1201에 추가된 내용
 import jakarta.servlet.http.Cookie;
-
+import jakarta.validation.Valid; // Jakarta EE (최신 버전)
 
 
 
@@ -34,9 +34,10 @@ public String join_new() {
 }
 
 @PostMapping("/api/members") // 회원 가입 저장
-public String addmembers(@ModelAttribute AddMemberRequest request) {
- memberService.saveMember(request);
- return "join_end"; // .HTML 연결
+public String addmembers(
+    @Valid @ModelAttribute AddMemberRequest request) {
+    memberService.saveMember(request);
+    return "join_end"; // .HTML 연결
 }
 
 @GetMapping("/member_login") // 로그인 페이지 연결
@@ -84,6 +85,8 @@ public String checkMembers(@ModelAttribute AddMemberRequest request, Model model
     } catch (IllegalArgumentException e) {
         // 로그인 실패 시 에러 메시지를 모델에 추가
         model.addAttribute("error", e.getMessage());
+
+
         
         // 로그인 페이지로 리다이렉트
         return "login";

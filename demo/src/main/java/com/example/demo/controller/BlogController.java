@@ -75,52 +75,51 @@ public class BlogController{
     }*/
 
 
-    @GetMapping("/board_list") // 새로운 게시판 링크 지정
+    @GetMapping("/board_list")
 public String board_list(
     Model model, 
     @RequestParam(defaultValue = "0") int page, 
     @RequestParam(defaultValue = "") String keyword, 
-    HttpSession session) { // 세션 객체 전달
+    HttpSession session) {
 
     // 세션에서 userId 확인
     String userId = (String) session.getAttribute("userId");
-    String email = (String) session.getAttribute("email"); // 세션에서 이메일 확인
+    String email = (String) session.getAttribute("email");
     if (userId == null) {
-        // 세션이 없으면 로그인 페이지로 리다이렉션
-        return "redirect:/member_login";
-    }
-    // 디버깅: 세션의 userId를 출력
-    System.out.println("세션 userId: " + userId);
-
-    // 페이지 요청 및 검색 처리
-    PageRequest pageable = PageRequest.of(page, 3); // 한 페이지의 게시글 수
-    Page<Board> list; // Page를 반환
-    if (keyword.isEmpty()) {
-        list = blogService.findAll(pageable); // 기본 전체 출력(키워드 없음)
-    } else {
-        list = blogService.searchByKeyword(keyword, pageable); // 키워드로 검색
+        return "redirect:/member_login"; // 로그인 페이지로 리다이렉션
     }
 
-    // 모델에 데이터 추가
-    model.addAttribute("boards", list); // 게시판 목록
+    // 페이지 처리 및 검색
+    int pageSize = 3; // 페이지당 게시글 수
+    PageRequest pageable = PageRequest.of(page, pageSize); 
+    Page<Board> list = keyword.isEmpty() ? blogService.findAll(pageable)
+                                         : blogService.searchByKeyword(keyword, pageable);
+
+    // 게시글 번호 시작값 계산
+    int startNum = (page * pageSize) + 1;
+
+    // 데이터 추가
+    model.addAttribute("boards", list.getContent()); // 게시글 리스트
     model.addAttribute("totalPages", list.getTotalPages()); // 총 페이지 수
     model.addAttribute("currentPage", page); // 현재 페이지
-    model.addAttribute("keyword", keyword); // 검색 키워드
-    model.addAttribute("email", email); // 로그인 사용자(이메일)
-    // model.addAttribute("startNum", startNum); // 10주차 ppt에는 적혀져 있는데, 일단 보류
+    model.addAttribute("keyword", keyword); // 검색어
+    model.addAttribute("email", email); // 사용자 이메일
+    model.addAttribute("startNum", startNum); // 게시글 시작 번호
 
-    // 연결할 HTML 파일 이름 반환
-    return "board_list";
+    return "board_list"; // board_list.html 렌더링
 }
-@GetMapping("/board_edit/{id}")
-public String editBoard(@PathVariable Long id, Model model) {
-    Optional<Board> board = blogService.findById(id);
-    if (board.isPresent()) {
-        model.addAttribute("boards", board.get());
-        return "board_list"; // board_list.html로 연결
-    }
-    return "error"; // 오류 처리 (예: board가 없을 경우)
+
+
+
+@PostMapping("/api/board_update/{id}")
+public String updateBoard(@PathVariable Long id, @ModelAttribute AddArticleRequest request) {
+    System.out.println("수정 요청 ID: " + id);
+    System.out.println("수정 요청 데이터: " + request);
+    blogService.update(id, request);
+    return "redirect:/board_list";
 }
+
+
 
     @GetMapping("/board_view/{id}") // 게시판 링크 지정
     public String board_view(Model model, @PathVariable Long id) {
@@ -146,4 +145,12 @@ public String editBoard(@PathVariable Long id, Model model) {
      blogService.save(request);
      return "redirect:/board_list"; // .HTML 연결
     }
+
+    @DeleteMapping("/api/board_delete/{id}")
+    public String deleteBoard(@PathVariable Long id) {
+        blogService.delete(id);
+        return "redirect:/board_list";
+    }
+    
+    
 }

@@ -13,7 +13,7 @@
     <!--게시글추가폼-->
  <div class="mt-4">
     <h2>게시글추가</h2>
-    <form th:action="@{/api/articles}" method="post" name="content">
+    <form th:action="@{/api/boards}" method="post" name="content">
     <div class="form-group">
     <label for="title">제목:</label>
     <input type="text" class="form-control" id="title" name="title" required>
@@ -38,9 +38,10 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>글번호</th>
                     <th>제목</th>
                     <th>작성자</th>
+                    <th>작성일</th>
                     <th>조회수</th>
                     <th>좋아요</th>
                 </tr>

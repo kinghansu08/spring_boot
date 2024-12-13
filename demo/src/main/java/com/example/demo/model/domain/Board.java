@@ -32,29 +32,27 @@ public class Board {
     @Column(name = "likec", nullable = false)
     private String likec = "";
 
-    //1204추가
-    @Column(name = "update", nullable = false)
-    private String update = "";
 
     @Builder
-    public Board(String title, String content, String user, String newdate, String count, String likec, String update) {
+    public Board(String title, String content, String user, String newdate, String count, String likec) {
         this.title = title;
         this.content = content;
         this.user = user;
         this.newdate = newdate;
         this.count = count;
         this.likec = likec;
-        this.update = update;
+        
     }
 
-    public void update(String title, String content,String user,String newdate,String count,String likec,String update) {
+    public void update(String title, String content,String user,String newdate,String count,String likec) {
         this.title = title;
         this.content = content;
         this.user = user;
         this.newdate = newdate;
         this.count = count;
         this.likec = likec;
-        this.update = update;
+       
     }
+ 
 }
 

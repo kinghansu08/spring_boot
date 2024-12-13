@@ -1,6 +1,7 @@
 package com.example.demo.model.service;
 
 import lombok.*; // 어노테이션 자동 생성
+
 import com.example.demo.model.domain.Board;
 
 
@@ -14,9 +15,6 @@ public class AddArticleRequest {
     private String newdate;
     private String count;
     private String likec;
-    //1204추가
-    // private String update;
-
 
     // DTO를 Article 엔티티로 변환하는 메서드
     // public Article toEntity() { 
@@ -35,8 +33,25 @@ public class AddArticleRequest {
                  .newdate(newdate)
                  .count(count)
                  .likec(likec)
-                 //1204추가
-                //  .update(update)
                  .build();
          }
+
+         // 추가된 getter 메서드 (Lombok이 자동으로 생성하지만 명시적으로 구현 가능)
+    public String getUser() {
+        return user;
+    }
+
+    public String getNewdate() {
+        return newdate;
+    }
+
+    public String getCount() {
+        return count;
+    }
+
+    public String getLikec() {
+        return likec;
+    }
+
+    
 }
