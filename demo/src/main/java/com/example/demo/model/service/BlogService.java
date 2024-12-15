@@ -51,8 +51,6 @@ public class BlogService {
       return blogRepository.findByTitleContainingIgnoreCase(keyword, pageable);
       } // LIKE 검색 제공(대소문자 무시)
 
-      
-
     public Board save(AddArticleRequest request){
       // DTO가 없는 경우 이곳에 직접 구현 가능
      return blogRepository.save(request.toEntity());
@@ -74,8 +72,6 @@ public class BlogService {
       }
   }
   
-
-
       public void delete(Long id) {
         Optional<Board> optionalBoard = blogRepository.findById(id); // 삭제할 게시글 조회
         if (optionalBoard.isPresent()) {
@@ -84,9 +80,6 @@ public class BlogService {
             throw new IllegalArgumentException("삭제할 게시글이 존재하지 않습니다. ID: " + id);
         }
     }
-
-
-
 
     // // 게시글 저장
     // public Article save(AddArticleRequest request) {

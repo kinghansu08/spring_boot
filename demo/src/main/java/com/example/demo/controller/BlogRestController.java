@@ -25,10 +25,6 @@
     return ResponseEntity.status(HttpStatus.CREATED)
     .body(saveArticle);
     }
-
-
-
-
         @GetMapping("/favicon.ico")
         public void favicon() {
             // 아무 작업도 하지 않음

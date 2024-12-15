@@ -20,9 +20,6 @@ import java.util.UUID;
 import jakarta.servlet.http.Cookie;
 import jakarta.validation.Valid; // Jakarta EE (최신 버전)
 
-
-
-
 @Controller
 public class MemberController {
     @Autowired
@@ -86,8 +83,6 @@ public String checkMembers(@ModelAttribute AddMemberRequest request, Model model
         // 로그인 실패 시 에러 메시지를 모델에 추가
         model.addAttribute("error", e.getMessage());
 
-
-        
         // 로그인 페이지로 리다이렉트
         return "login";
     }
@@ -111,5 +106,4 @@ public String member_logout(Model model, HttpServletRequest request2, HttpServle
     return "login"; // 로그인실패시로그인페이지로리다이렉트
 }
 }
-
 }

@@ -41,7 +41,6 @@ public class Board {
         this.newdate = newdate;
         this.count = count;
         this.likec = likec;
-        
     }
 
     public void update(String title, String content,String user,String newdate,String count,String likec) {
@@ -51,7 +50,6 @@ public class Board {
         this.newdate = newdate;
         this.count = count;
         this.likec = likec;
-       
     }
  
 }

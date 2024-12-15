@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-
-
 @Controller
 @RequiredArgsConstructor
 public class BlogController{
@@ -74,7 +72,6 @@ public class BlogController{
         return "article_edit"; // article_edit.html 페이지 반환
     }*/
 
-
     @GetMapping("/board_list")
 public String board_list(
     Model model, 
@@ -109,8 +106,6 @@ public String board_list(
     return "board_list"; // board_list.html 렌더링
 }
 
-
-
 @PostMapping("/api/board_update/{id}")
 public String updateBoard(@PathVariable Long id, @ModelAttribute AddArticleRequest request) {
     System.out.println("수정 요청 ID: " + id);
@@ -118,8 +113,6 @@ public String updateBoard(@PathVariable Long id, @ModelAttribute AddArticleReque
     blogService.update(id, request);
     return "redirect:/board_list";
 }
-
-
 
     @GetMapping("/board_view/{id}") // 게시판 링크 지정
     public String board_view(Model model, @PathVariable Long id) {

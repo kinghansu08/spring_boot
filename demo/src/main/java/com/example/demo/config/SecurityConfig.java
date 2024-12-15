@@ -8,8 +8,6 @@ package com.example.demo.config;
  import org.springframework.security.crypto.password.PasswordEncoder;
  import org.springframework.security.web.SecurityFilterChain;
 
-
-
  @Configuration // 스프링 설정 클래스 지정, 등록된 Bean 생성 시점
  @EnableWebSecurity // 스프링 보안 활성화
 
