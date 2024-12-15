@@ -7,8 +7,12 @@
 - (추가구현:ppt:7,9,10,11 구현 실패)
 
 ## 개발 환경
+### 프론트엔드
+- HTML/CSS, 부트스트랩, JS
+- thymeleaf
+### 백엔드
 - Spring_Boot
-- visual studio code
+- mysql
 
 ## 작성한 주요 코드 소개
 
