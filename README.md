@@ -1,15 +1,21 @@
-Proman-함께 일 할 동반자 모집!
-개발 기간
-9월 14일 (수) ~12월 15일 (일)
-10월 31일 (수) 중간고사
-12월 11일 (수) 기말고사
-(추가구현:ppt:7,9,10,11 구현 실패)
-개발 환경
-Spring_Boot
-visual studio code
-작성한 주요 코드 소개
-config
-SecurityCofig.java
+# Proman-함께 일 할 동반자 모집!
+
+## 개발 기간
+- 9월 14일 (수) ~12월 15일 (일)
+- 10월 31일 (수) 중간고사
+- 12월 11일 (수) 기말고사
+- (추가구현:ppt:7,9,10,11 구현 실패)
+
+## 개발 환경
+- Spring_Boot
+- visual studio code
+
+## 작성한 주요 코드 소개
+
+### config
+
+#### SecurityCofig.java
+````package com.example.demo.config;
 
  import org.springframework.context.annotation.Bean;
  import org.springframework.context.annotation.Configuration;
@@ -48,8 +54,12 @@ public PasswordEncoder passwordEncoder() {
 return new BCryptPasswordEncoder(); // 비밀번호 암호화 저장
 }    
 }
-controller
-BlogController.java
+````
+
+### controller
+
+#### BlogController.java
+````package com.example.demo.controller;
 
 import com.example.demo.model.domain.Board;
 import com.example.demo.model.service.AddArticleRequest;
@@ -198,7 +208,10 @@ public String updateBoard(@PathVariable Long id, @ModelAttribute AddArticleReque
     
     
 }
-FileController.java
+````
+
+#### FileController.java
+````package com.example.demo.controller;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -249,7 +262,9 @@ writer.write("요청메시지:");
     return "upload_end"; // .html 파일 연동
    }
 }
-GlobalExceptionHandler.java
+````
+#### GlobalExceptionHandler.java
+````package com.example.demo.controller;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -266,7 +281,10 @@ public class GlobalExceptionHandler {
         return "error_page/article_error"; // 오류 처리 페이지로 이동
     }
 }
-MemberController.java
+````
+
+#### MemberController.java
+````package com.example.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -375,8 +393,11 @@ public String member_logout(Model model, HttpServletRequest request2, HttpServle
 }
 }
 }
-domain
-Board.java
+````
+
+### domain
+#### Board.java
+````package com.example.demo.model.domain;
 
 import lombok.*; // 어노테이션 자동 생성
 import jakarta.persistence.*; // 기존 javax 후속 버전
@@ -431,7 +452,10 @@ public class Board {
     }
  
 }
-Member.java
+````
+
+#### Member.java
+````package com.example.demo.model.domain;
 
 import lombok.*; // 어노테이션 자동 생성
 import jakarta.persistence.*; // 기존 javax 후속 버전
@@ -474,8 +498,11 @@ public class Member {
     this.address = address;
     }
 }
-repository
-BlogRepository.java
+````
+
+### repository
+#### BlogRepository.java
+````package com.example.demo.model.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -487,7 +514,10 @@ import com.example.demo.model.domain.Board;
  public interface BlogRepository extends JpaRepository<Board, Long>{
  Page<Board> findByTitleContainingIgnoreCase(String title, Pageable pageable);
  }
-Boardrepository.java
+````
+
+#### Boardrepository.java
+````package com.example.demo.model.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import com.example.demo.model.domain.Board;
@@ -499,7 +529,10 @@ import com.example.demo.model.domain.Board;
 public interface BoardRepository extends JpaRepository<Board, Long>{
     // List<Article> findAll();
 }
-Member_Service.java
+````
+
+#### Member_Service.java
+````package com.example.demo.model.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -509,8 +542,11 @@ import com.example.demo.model.domain.Member;
  public interface Member_Repository extends JpaRepository<Member, Long> {
  Member findByEmail(String email);
  }
-service
-AddArticleRequest.java
+````
+
+### service
+#### AddArticleRequest.java
+````package com.example.demo.model.service;
 
 import lombok.*; // 어노테이션 자동 생성
 
@@ -564,7 +600,9 @@ public class AddArticleRequest {
         return likec;
     }   
 }
-AddMemberRequest.java
+````
+#### AddMemberRequest.java
+````
 package com.example.demo.model.service;
 
 import com.example.demo.model.domain.Member;
@@ -609,7 +647,9 @@ public class AddMemberRequest {
              .build();
         }
     }
-BlogService.java
+````
+#### BlogService.java
+````package com.example.demo.model.service;
 
 import java.util.Optional;
 import java.time.LocalDateTime;
@@ -700,7 +740,10 @@ public class BlogService {
     //     blogRepository.deleteById(id);
     //     }
 }
-Member_Service.java
+````
+
+#### Member_Service.java
+````package com.example.demo.model.service;
 
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
@@ -753,8 +796,11 @@ public class Member_Service {
     }
 
 }
-Templates
-error_page ->article_error.html
+````
+### Templates
+
+#### error_page ->article_error.html
+````
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -780,7 +826,9 @@ error_page ->article_error.html
 </div>
 </body>
 </html>
-board_list.html
+````
+#### board_list.html
+````
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -871,7 +919,10 @@ board_list.html
     </nav>
 </body>
 </html>
-board_update(edit을 update로 바꿈)
+````
+
+#### board_update(edit을 update로 바꿈)
+````
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -898,7 +949,9 @@ board_update(edit을 update로 바꿈)
     </div>
 </body>
 </html>
-board_view.html
+````
+#### board_view.html
+````<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -943,7 +996,9 @@ board_view.html
 </div>
 </body>
 </html>
-board_write
+````
+#### board_write
+````
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -1024,7 +1079,9 @@ board_write
 </div>
 </body>
 </html>
-join_end.html
+````
+#### join_end.html
+````<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -1043,7 +1100,9 @@ join_end.html
 </a>
  </div>
  </body>
-join_new.html
+````
+#### join_new.html
+````
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -1102,7 +1161,9 @@ join_new.html
         </div>
         </div>
         </div>
-upload_end.html
+````
+#### upload_end.html
+````<!DOCTYPE html>
  <html xmlns:th="http://www.thymeleaf.org">
  <head>
  <meta charset="UTF-8">
@@ -1117,3 +1178,18 @@ upload_end.html
  </div>
  </body>
  </html>
+````
+
+
+
+
+
+
+
+
+
+
+
+
+
+
