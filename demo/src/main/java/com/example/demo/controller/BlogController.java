@@ -144,6 +144,4 @@ public String updateBoard(@PathVariable Long id, @ModelAttribute AddArticleReque
         blogService.delete(id);
         return "redirect:/board_list";
     }
-    
-    
-}
+} //깃허브 연동확인
