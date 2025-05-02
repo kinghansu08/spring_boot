@@ -21,6 +21,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.validation.Valid; // Jakarta EE (최신 버전)
 
 @Controller
+
 public class MemberController {
     @Autowired
     private Member_Service memberService;
